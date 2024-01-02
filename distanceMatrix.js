@@ -3,9 +3,9 @@ const calculateDistance = (x1, y1, x2, y2) => {
 }
 
 const generateDistanceMatrix = (NODE_COORD_SECTION) => {
-  const distanceMatrix = new Array(NODE_COORD_SECTION.length-1);
+  const distanceMatrix = new Array(NODE_COORD_SECTION.length);
 
-  for (let i = 1; i < NODE_COORD_SECTION.length-1; i++) {
+  for (let i = 1; i < NODE_COORD_SECTION.length; i++) {
     distanceMatrix[i] = new Array(i).fill(0);
     for (let j = 0; j < i; j++) {
       const { x: x1, y: y1 } = NODE_COORD_SECTION[i];

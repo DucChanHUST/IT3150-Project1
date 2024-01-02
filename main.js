@@ -36,12 +36,55 @@ const CVRP = async () => {
   // usedRoute < trucks
 
   savingList.map((item, index) => {
+    // console.log(item);
     // merge
     for (let k = 0; k < usedRoute - 1; k++) {
       for (let l = k + 1; l < usedRoute; l++) {
         if (
           (route[k][0] === item.i && route[l][0] === item.j) ||
           (route[k][0] === item.j && route[l][0] === item.i)
+        ) {
+          if (capacity[k] >= CAPACITY - capacity[l]) {
+            route[k] = route[l].reverse().concat(route[k]);
+            capacity[k] -= CAPACITY - capacity[l];
+            route.splice(l, 1);
+            capacity.splice(l, 1);
+            route.push([]);
+            capacity.push(CAPACITY);
+            usedRoute--;
+            console.log(route, "m1");
+            console.log(capacity);
+            return;
+          } else {
+            return;
+          }
+        }
+
+        if (
+          (route[k][0] === item.i &&
+            route[l][route[l].length - 1] === item.j) ||
+          (route[k][0] === item.j && route[l][route[l].length - 1] === item.i)
+        ) {
+          if (capacity[k] >= CAPACITY - capacity[l]) {
+            route[k] = route[l].concat(route[k]);
+            capacity[k] -= CAPACITY - capacity[l];
+            route.splice(l, 1);
+            capacity.splice(l, 1);
+            route.push([]);
+            capacity.push(CAPACITY);
+            usedRoute--;
+            console.log(route, "m2");
+            console.log(capacity);
+            return;
+          } else {
+            return;
+          }
+        }
+
+        if (
+          (route[k][route[k].length - 1] === item.i &&
+            route[l][0] === item.j) ||
+          (route[k][route[k].length - 1] === item.j && route[l][0] === item.i)
         ) {
           if (capacity[k] >= CAPACITY - capacity[l]) {
             route[k] = route[k].concat(route[l]);
@@ -51,7 +94,7 @@ const CVRP = async () => {
             route.push([]);
             capacity.push(CAPACITY);
             usedRoute--;
-            console.log(route, index, "m1");
+            console.log(route, "m3");
             console.log(capacity);
             return;
           } else {
@@ -66,27 +109,6 @@ const CVRP = async () => {
             route[l][route[l].length - 1] === item.i)
         ) {
           if (capacity[k] >= CAPACITY - capacity[l]) {
-            route[k] = route[k].concat(route[l]);
-            capacity[k] -= CAPACITY - capacity[l];
-            route.splice(l, 1);
-            capacity.splice(l, 1);
-            route.push([]);
-            capacity.push(CAPACITY);
-            usedRoute--;
-            console.log(route, index, "m2");
-            console.log(capacity);
-            return;
-          } else {
-            return;
-          }
-        }
-
-        if (
-          (route[k][0] === item.i &&
-            route[l][route[l].length - 1] === item.j) ||
-          (route[k][0] === item.j && route[l][route[l].length - 1] === item.i)
-        ) {
-          if (capacity[k] >= CAPACITY - capacity[l]) {
             route[k] = route[k].concat(route[l].reverse());
             capacity[k] -= CAPACITY - capacity[l];
             route.splice(l, 1);
@@ -94,28 +116,7 @@ const CVRP = async () => {
             route.push([]);
             capacity.push(CAPACITY);
             usedRoute--;
-            console.log(route, index, "m3");
-            console.log(capacity);
-            return;
-          } else {
-            return;
-          }
-        }
-
-        if (
-          (route[k][route[k].length - 1] === item.i &&
-            route[l][0] === item.j) ||
-          (route[k][route[k].length - 1] === item.j && route[l][0] === item.i)
-        ) {
-          if (capacity[k] >= CAPACITY - capacity[l]) {
-            route[k] = route[k].concat(route[l].reverse());
-            capacity[k] -= CAPACITY - capacity[l];
-            route.splice(l, 1);
-            capacity.splice(l, 1);
-            route.push([]);
-            capacity.push(CAPACITY);
-            usedRoute--;
-            console.log(route, index, "m4");
+            console.log(route, "m4");
             console.log(capacity);
             return;
           } else {
@@ -142,7 +143,7 @@ const CVRP = async () => {
         capacity[usedRoute] -= DEMAND_SECTION[item.i].demand;
         capacity[usedRoute] -= DEMAND_SECTION[item.j].demand;
         usedRoute++;
-        console.log(route, index, "*");
+        console.log(route, "*");
         console.log(capacity);
         return;
       }
@@ -163,7 +164,7 @@ const CVRP = async () => {
       ) {
         route[k].unshift(item.j);
         capacity[k] -= DEMAND_SECTION[item.j].demand;
-        console.log(route, index, "a");
+        console.log(route, "a");
         console.log(capacity);
         return;
       }
@@ -174,7 +175,7 @@ const CVRP = async () => {
       ) {
         route[k].unshift(item.i);
         capacity[k] -= DEMAND_SECTION[item.i].demand;
-        console.log(route, index, "b");
+        console.log(route, "b");
         console.log(capacity);
         return;
       }
@@ -185,7 +186,7 @@ const CVRP = async () => {
       ) {
         route[k].push(item.j);
         capacity[k] -= DEMAND_SECTION[item.j].demand;
-        console.log(route, index, "c");
+        console.log(route, "c");
         console.log(capacity);
         return;
       }
@@ -196,16 +197,19 @@ const CVRP = async () => {
       ) {
         route[k].push(item.i);
         capacity[k] -= DEMAND_SECTION[item.i].demand;
-        console.log(route, index, "d");
+        console.log(route, "d");
         console.log(capacity);
         return;
       }
     }
   });
 
-  const cost = calculateCost(distanceMatrix, route);
+  route = route.map(item => [0, ...item, 0]);
 
-  console.log(cost);
+  calculateCost(distanceMatrix, route);
+  // const cost = calculateCost(distanceMatrix, route);
+
+  // console.log(cost);
   console.log(route);
   console.log(capacity);
   console.log();
