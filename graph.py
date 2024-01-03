@@ -7,6 +7,9 @@ with open('./node-coord.json', 'r') as file:
 with open('./route-list.json', 'r') as file:
     routes = json.load(file)
 
+with open('./total-cost.json', 'r') as file:
+    cost = json.load(file)
+
 x_values = [node["x"] for node in coordinates]
 y_values = [node["y"] for node in coordinates]
 
@@ -22,6 +25,6 @@ for route in routes:
 
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
-plt.title('Graph of nodes and routes')
+plt.title('total cost: ' + str(cost))
 
 plt.show()
