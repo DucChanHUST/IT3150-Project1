@@ -1,5 +1,6 @@
 // main.js
 const { readFile } = require("./readFile");
+const { writeFile } = require("./writeFile");
 const { calculateCost } = require("./calculateCost");
 const { generateSavingList } = require("./savingList");
 const { generateDistanceMatrix } = require("./distanceMatrix");
@@ -213,6 +214,8 @@ const CVRP = async () => {
   console.log(route);
   console.log(capacity);
   console.log();
+  // console.log(NODE_COORD_SECTION);
+  writeFile(NODE_COORD_SECTION, route);
 };
 
 CVRP();
