@@ -21,8 +21,25 @@ Make sure you have Node.js and Python installed on your system before running th
 
 ## Repo branch
 ### main
-The `main` branch contains the implementation of the Improved Clarke and Wright Saving algorithm.
+The `main` branch contains the implementation of the Improved Clarke-Wright Savings algorithm.
 ### CW
 The `CW` branch includes the implementation of the Clarke-Wright Savings (CW) algorithm in its classical form.
 ### Vigo
 The `Vigo` branch extends the CW algorithm by incorporating the Vigo heuristic parameter.
+
+## Result
+#### <ul>With A-n32-k5 dataset</ul>
+<li>Clarke-Wright Savings</li>
+<p align="center">
+  <img src="./result-image/CW.png" alt="Clarke-Wright Savings">
+</p>
+<br>
+<li>Vigo's Heuristic</li>
+<p align="center">
+  <img src="./result-image/Vigo.png" alt="Vigo's Heuristic">
+</p>
+<br>
+<li>Improved Clarke-Wright Savings</li>
+<p align="center">
+  <img src="./result-image/ICW2.png" alt="Improved Clarke-Wright Savings">
+</p>
