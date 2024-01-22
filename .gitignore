@@ -1,0 +1,5 @@
+# Ignore files with .json extension
+*.json
+
+# Ignore files with .txt extension
+*.txt
