@@ -15,17 +15,17 @@ const CVRP = async () => {
 
   const distanceMatrix = generateDistanceMatrix(NODE_COORD_SECTION);
 
-  const savingList = generateSavingList(distanceMatrix);
-  let route, cost;
-  let i =0;
+  let route, cost, savingList;
 
+  savingList = generateSavingList(distanceMatrix);
   route = solution(savingList, trucks, CAPACITY, DEMAND_SECTION);
   cost = calculateCost(distanceMatrix, route);
 
-  for (let index = 0; index < 100000; index++) {
+  const iteration = savingList.length * 1000;
+
+  for (let index = 0; index < iteration; index++) {
     const newSavingList = generateSavingListGA(savingList);
     if (newSavingList.length) {
-      i++;
       const newRoute = solution(
         newSavingList,
         trucks,
@@ -37,17 +37,14 @@ const CVRP = async () => {
         if (newCost < cost) {
           route = newRoute;
           cost = newCost;
-          console.log("***");
+          savingList = newSavingList;
+          console.log(index, cost);
         }
-      } catch (error) {
-        console.log("huhuu");
-      }
+      } catch (error) {}
     }
   }
 
-  // console.log(route);
   console.log(cost);
-  console.log(i);
   writeFile(NODE_COORD_SECTION, route, cost);
 };
 
