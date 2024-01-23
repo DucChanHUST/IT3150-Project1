@@ -7,7 +7,7 @@ const readFile = async (filePath) => {
 
   const vrpData = {
     CAPACITY: 0,
-    trucks: 5,
+    trucks: 0,
     DIMENSION: 0,
     NODE_COORD_SECTION: [],
     DEMAND_SECTION: [],
