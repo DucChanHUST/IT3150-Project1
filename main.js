@@ -15,7 +15,7 @@ const CVRP = async () => {
 
   const distanceMatrix = generateDistanceMatrix(NODE_COORD_SECTION);
 
-  let route, cost, savingList;
+  let route, cost, savingList, notImprovement;
 
   savingList = generateSavingList(distanceMatrix);
   route = solution(savingList, trucks, CAPACITY, DEMAND_SECTION);
@@ -41,9 +41,16 @@ const CVRP = async () => {
           route = newRoute;
           cost = newCost;
           savingList = newSavingList;
+          notImprovement = 0;
           console.log(index, cost);
+        } else {
+          notImprovement++;
         }
       } catch (error) {}
+    }
+
+    if (notImprovement > 1000) {
+      break;
     }
   }
 
