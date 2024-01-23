@@ -16,6 +16,11 @@ const readFile = async (filePath) => {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
+    if (line.includes("trucks")) {
+      const noOfTrucksMatch = line.match(/No of trucks: (\d+)/);
+      vrpData.trucks = noOfTrucksMatch ? parseInt(noOfTrucksMatch[1]) : null;
+    }
+
     const [key, value] = line.split(/\s*:\s*/);
 
     switch (key) {
