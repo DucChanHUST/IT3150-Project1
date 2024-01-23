@@ -2,7 +2,7 @@ const generateSavingListGA = (descSavingList) => {
   let newSavingList = [];
   const savingList = descSavingList.slice();
 
-  const tournamentSize = Math.floor(Math.random() * 5) + 2;
+  const tournamentSize = Math.floor(Math.random() * 7) + 3;
 
   while (savingList.length) {
     const roulette =

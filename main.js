@@ -21,7 +21,7 @@ const CVRP = async () => {
   route = solution(savingList, trucks, CAPACITY, DEMAND_SECTION);
   cost = calculateCost(distanceMatrix, route);
 
-  const iteration = savingList.length * 1000;
+  const iteration = 10000;
 
   for (let index = 0; index < iteration; index++) {
     const newSavingList = generateSavingListGA(savingList);
@@ -32,6 +32,9 @@ const CVRP = async () => {
         CAPACITY,
         DEMAND_SECTION
       );
+
+      if (newRoute.length === 0) continue;
+
       try {
         const newCost = calculateCost(distanceMatrix, newRoute);
         if (newCost < cost) {

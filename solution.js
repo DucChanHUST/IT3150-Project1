@@ -5,6 +5,7 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
     route.push([]);
   }
 
+  const DIMENSION = DEMAND_SECTION.length;
   let usedRoute = 0;
 
   savingList.map((item) => {
@@ -26,10 +27,8 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
             usedRoute--;
             // console.log(route, "m1");
             // console.log(capacity);
-            return;
-          } else {
-            return;
           }
+          return;
         }
 
         if (
@@ -47,10 +46,8 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
             usedRoute--;
             // console.log(route, "m2");
             // console.log(capacity);
-            return;
-          } else {
-            return;
           }
+          return;
         }
 
         if (
@@ -68,10 +65,8 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
             usedRoute--;
             // console.log(route, "m3");
             // console.log(capacity);
-            return;
-          } else {
-            return;
           }
+          return;
         }
 
         if (
@@ -90,10 +85,8 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
             usedRoute--;
             // console.log(route, "m4");
             // console.log(capacity);
-            return;
-          } else {
-            return;
           }
+          return;
         }
       }
     }
@@ -177,6 +170,10 @@ const solution = (savingList, trucks, CAPACITY, DEMAND_SECTION) => {
     }
   });
 
+  if (countElements(route) < DIMENSION - 1) {
+    return [];
+  }
+
   route = route.map((item) => [0, ...item, 0]);
 
   return route;
@@ -197,3 +194,12 @@ const checkExist = (route, i, j) => {
   return false;
 };
 
+const countElements = (arr2D) => {
+  let totalCount = 0;
+
+  for (let i = 0; i < arr2D.length; i++) {
+      totalCount += arr2D[i].length;
+  }
+
+  return totalCount;
+}
