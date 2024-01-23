@@ -1,3 +1,5 @@
+const { parse } = require("path");
+
 const fs = require("fs").promises;
 
 const readFile = async (filePath) => {
@@ -7,7 +9,7 @@ const readFile = async (filePath) => {
 
   const vrpData = {
     CAPACITY: 0,
-    trucks: 5,
+    trucks: 0,
     DIMENSION: 0,
     NODE_COORD_SECTION: [],
     DEMAND_SECTION: [],
@@ -16,6 +18,10 @@ const readFile = async (filePath) => {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
+    if (line.includes("trucks")) {
+      const noOfTrucksMatch = line.match(/No of trucks: (\d+)/);
+      vrpData.trucks = noOfTrucksMatch ? parseInt(noOfTrucksMatch[1]) : null;
+    }
     const [key, value] = line.split(/\s*:\s*/);
 
     switch (key) {
