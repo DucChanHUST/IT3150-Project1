@@ -3,3 +3,7 @@
 
 # Ignore files with .txt extension
 *.txt
+
+# Ignore files pycache
+__pycache__/
+myenv
